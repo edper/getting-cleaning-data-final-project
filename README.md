@@ -59,7 +59,7 @@ tbl_df(train_all)
 
 I have this preview of the combined data sets of *x_train*, *y_train* and *subject_train*.
 
-Source: local data frame [7,352 x 563]
+    Source: local data frame [7,352 x 563]
 
         V1 V1.1      V1.2           V2         V3         V4
     1   1    5 0.2885845 -0.020294171 -0.1329051 -0.9952786
@@ -78,5 +78,5 @@ Source: local data frame [7,352 x 563]
     (dbl), V14 (dbl), V15 (dbl), V16 (dbl), V17 (dbl), V18
     (dbl), V19 (dbl), V20 (dbl), V21 (dbl), V22 (dbl), V23
 
-[Note: Some of variables under *Variables not shown* I intentionally did not show to save space.]
+[**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
 
