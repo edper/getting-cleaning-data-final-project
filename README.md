@@ -11,4 +11,13 @@ or executing the following command in R-Studio
 download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", mode="wb", destfile = "getdata_projectfiles_UCI HAR Dataset.zip")
 ```
 
+After you successfully downloded the zipped file is you create a folder named **data** in the current working directory of your R-Studio. However, if you have that directory already skip this step.
+
+Unzipped the *getdata_projectfiles_UCI HAR Dataset.zip* file in your current working directory. Then after that transfer the **UCI HAR Dataset** under the *data* folder that you created awhile ago (or long ago if you have it already before).
+
+Now, we are ready to start with the R script. But before we do that make sure that you install `dplyr` otherwise if not you need to install it.
+
+```{r}
+install.packages("dplyr")
+```
 
