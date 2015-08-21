@@ -1,17 +1,16 @@
-    suppressMessages(library(dplyr))
+suppressMessages(library(dplyr))
 
-    # Combine subject_train or the subject for the training sets
-    # then y_train which is the activity number that the subject performed
-    # and finally the x_train which is the performed training sets for each subject
-    x_train <- read.table("data/UCI HAR Dataset/train/x_train.txt")
-    y_train <- read.table("data/UCI HAR Dataset/train/y_train.txt")
-    subject_train <- read.table("data/UCI HAR Dataset/train/subject_train.txt")
-    train_all <- cbind(subject_train, y_train, x_train)
+# Combine subject_train or the subject for the training sets
+# then y_train which is the activity number that the subject performed
+# and finally the x_train which is the performed training sets for each subject
+x_train <- read.table("data/UCI HAR Dataset/train/x_train.txt")
+y_train <- read.table("data/UCI HAR Dataset/train/y_train.txt")
+subject_train <- read.table("data/UCI HAR Dataset/train/subject_train.txt")
+train_all <- cbind(subject_train, y_train, x_train)
 
 # Combine subject_test or the subject for the test sets
 # then y_test which is the activity number that the subject performed
 # and finally the x_test which is the performed test sets for each subject
-
 x_test <- read.table("data/UCI HAR Dataset/test/x_test.txt")
 y_test <- read.table("data/UCI HAR Dataset/test/y_test.txt")
 subject_test <- read.table("data/UCI HAR Dataset/test/subject_test.txt")
@@ -66,4 +65,4 @@ test_train_measurements_mean <- summarise_each(group_by(test_train_extract, acti
 colnames(test_train_measurements_mean)[c(-1,-2)] <- paste0(colnames(test_train_measurements_mean)[c(-1,-2)],"_mean")
 
 # write the result to a text file
-write.table(test_train_measurements_mean, file = "all_test_train_measurements_mean.txt", row.names = FALSE)
+write.table(test_train_measurements_mean, file = "final_project_measurements_mean.txt", row.names = FALSE)
