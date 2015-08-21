@@ -1,7 +1,9 @@
 ## Getting and Cleaning Data - Coursera - Final Project
-### A Run down on run_analysis.R
+### README file
 
-The goal of this README file is to guide you on how the requirements below, for the Getting and Cleaning Data course Final Project by Johns Hopkins Univeristy under Cousera was faithfully fulfilled by this author as will be shown momentarily.
+The goal of this README file is to guide you on how the requirements, for the Getting and Cleaning Data course Final Project by Johns Hopkins Univeristy under Cousera was faithfully fulfilled by this author as will be shown momentarily.
+
+Below is the requirements goal for this project.
 
 1. Merges the training and the test sets to create one data set.
 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
@@ -71,7 +73,7 @@ We have now this preview of the combined data sets of *x_train*, *y_train* and *
 
     Source: local data frame [7,352 x 563]
 
-        V1 V1.1      V1.2           V2         V3         V4
+    V1 V1.1      V1.2           V2         V3         V4
     1   1    5 0.2885845 -0.020294171 -0.1329051 -0.9952786
     2   1    5 0.2784188 -0.016410568 -0.1235202 -0.9982453
     3   1    5 0.2796531 -0.019467156 -0.1134617 -0.9953796
@@ -119,9 +121,111 @@ And just like the **train** data sets we need to combine all test files to make 
 test_all <- cbind(subject_test, y_test, x_test)
 ```
 
-After combining the train and test files separately into one data sets each, it's now time to combine them both. However, it would not be combine column-wise but row-wise since these are separate observations for both train and test data sets with exactly the same number of columns/variables. So, with that we need to use `rbind` command.
+Now, using `dplyr`'s `tbl_df`
+
+```{r}
+tbl_df(test_all)
+```
+
+We have now this preview of the combined data sets of *x_test*, *y_test* and *subject_test*.
+
+    Source: local data frame [2,947 x 563]
+
+    V1 V1.1      V1.2          V2          V3         V4
+    1   2    5 0.2571778 -0.02328523 -0.01465376 -0.9384040
+    2   2    5 0.2860267 -0.01316336 -0.11908252 -0.9754147
+    3   2    5 0.2754848 -0.02605042 -0.11815167 -0.9938190
+    4   2    5 0.2702982 -0.03261387 -0.11752018 -0.9947428
+    5   2    5 0.2748330 -0.02784779 -0.12952716 -0.9938525
+    6   2    5 0.2792199 -0.01862040 -0.11390197 -0.9944552
+    7   2    5 0.2797459 -0.01827103 -0.10399988 -0.9958192
+    8   2    5 0.2746005 -0.02503513 -0.11683085 -0.9955944
+    9   2    5 0.2725287 -0.02095401 -0.11447249 -0.9967841
+    10  2    5 0.2757457 -0.01037199 -0.09977589 -0.9983731
+    .. ..   ..       ...         ...         ...        ...
+    Variables not shown: V5 (dbl), V6 (dbl), V7 (dbl), V8
+    (dbl), V9 (dbl), V10 (dbl), V11 (dbl), V12 (dbl), V13
+    (dbl), V14 (dbl), V15 (dbl), V16 (dbl), V17 (dbl), V18
+
+[**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
+
+If you observe the number of columns/variables (i.e. 563) on above table is exactly the same as that of *train* data sets. However, the number of observations is different, namely, theare are 2,947 observations as compared to 7,352 on *train* data sets. This is because this is different set of subjects but more importantly this is approximately 30% of the volunters were assigned to *test* data sets while approximately 70% were assigned to *train* data sets as devised by the researchers. 
+
+After combining the train and test files separately into one data sets each, it's now time to combine them both. However, it will not be combine column-wise but row-wise since these are separate observations for both train and test data sets with exactly the same number of columns/variables. So, with that we need to use `rbind` command.
 
 ```{r}
 test_train_combine <- rbind(train_all, test_all)
 ```
-z
+
+Now, using `dplyr`'s `tbl_df` again.
+
+```{r}
+tbl_df(test_train_combine)
+```
+
+We have now this preview of the combined data sets of both test and train data sets.
+
+    Source: local data frame [10,299 x 563]
+
+    V1 V1.1 tBodyAcc-mean()-X tBodyAcc-mean()-Y
+    1   1    5         0.2885845      -0.020294171
+    2   1    5         0.2784188      -0.016410568
+    3   1    5         0.2796531      -0.019467156
+    4   1    5         0.2791739      -0.026200646
+    5   1    5         0.2766288      -0.016569655
+    6   1    5         0.2771988      -0.010097850
+    7   1    5         0.2794539      -0.019640776
+    8   1    5         0.2774325      -0.030488303
+    9   1    5         0.2772934      -0.021750698
+    10  1    5         0.2805857      -0.009960298
+    .. ..   ..               ...               ...
+   Variables not shown: tBodyAcc-mean()-Z (dbl),
+   tBodyAcc-std()-X (dbl), tBodyAcc-std()-Y (dbl),
+   tBodyAcc-std()-Z (dbl), tBodyAcc-mad()-X (dbl),
+   tBodyAcc-mad()-Y (dbl), tBodyAcc-mad()-Z (dbl),
+   tBodyAcc-max()-X (dbl), tBodyAcc-max()-Y (dbl)
+   
+[**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
+
+So, this time we have now a combine of 10,299 observations but with the same number of variables/columns (i.e. 563).
+
+This fulfills the requirement then the first requirement of this project, namely,  *to merge the training and the test sets to create one data set*.
+
+Now, the second task was to *extract only the measurements on the mean and standard deviation for each measurement* from the merged/combine train and test data sets. However, I personally feel that it is more strategic programming-wise to do it later and instead do the task number four (4) which is to *appropriately labels the data set with descriptive variable names*. This is then what we are going to do first.
+
+In order to do that then I need to read-in first all column names stored in **features.txt**.
+
+```{r}
+column_names <- read.table("data/UCI HAR Dataset/features.txt")
+```
+And then use `colnames()` within the `for..loop` to rename the variables/columns for the combine data sets of train and test data sets.
+
+```{r}
+for(i in 1:nrow(column_names)) { 
+  colnames(test_train_combine)[i+2] <- as.character(column_names[i,2])
+}
+```
+
+If you observe the index is always offset by 2 columns `[i+2]` since the first two columns is again the `subject id` and the `activity id` as mentioned earlier.
+
+Using then the `colnames()` for *test_train_combine* data sets we could now see that all the variables are now rename accordingly from *features.txt* except of course again the `acitivity id` and the `subject id` which are both not renamed yet as of this instance.
+
+```{r}
+> head(colnames(test_train_combine))
+```
+
+    [1] "V1"                "V1"               
+    [3] "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y"
+    [5] "tBodyAcc-mean()-Z" "tBodyAcc-std()-X" 
+
+```{r}
+> tail(colnames(test_train_combine))
+```
+    [1] "angle(tBodyAccJerkMean),gravityMean)"
+    [2] "angle(tBodyGyroMean,gravityMean)"    
+    [3] "angle(tBodyGyroJerkMean,gravityMean)"
+    [4] "angle(X,gravityMean)"                
+    [5] "angle(Y,gravityMean)"                
+    [6] "angle(Z,gravityMean)"
+
+
