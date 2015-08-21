@@ -206,20 +206,24 @@ for(i in 1:nrow(column_names)) {
 }
 ```
 
-If you observe the index is always offset by 2 columns `[i+2]` since the first two columns is again the `subject id` and the `activity id` as mentioned earlier.
-
-Using then the `colnames()` for *test_train_combine* data sets we could now see that all the variables are now rename accordingly from *features.txt* except of course again the `acitivity id` and the `subject id` which are both not renamed yet as of this instance.
+If you observe the index is always offset by 2 columns `[i+2]` since the first two columns is again the `subject id` and the `activity id` (as mentioned earlier) will be rename next.
 
 ```{r}
-> head(colnames(test_train_combine))
+colnames(test_train_combine)[1:2] <- c("subject_id", "activity_id")
 ```
 
-    [1] "V1"                "V1"               
+Using then the `colnames()` for *test_train_combine* data sets we could now see that all the variables are now rename accordingly from *features.txt* and also now the first two columns, namely, the `subject_id` and `activity_id`.
+
+```{r}
+ head(colnames(test_train_combine))
+```
+
+    [1] "subject_id"        "activity_id"
     [3] "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y"
     [5] "tBodyAcc-mean()-Z" "tBodyAcc-std()-X" 
 
 ```{r}
-> tail(colnames(test_train_combine))
+ tail(colnames(test_train_combine))
 ```
     [1] "angle(tBodyAccJerkMean),gravityMean)"
     [2] "angle(tBodyGyroMean,gravityMean)"    
@@ -227,5 +231,196 @@ Using then the `colnames()` for *test_train_combine* data sets we could now see 
     [4] "angle(X,gravityMean)"                
     [5] "angle(Y,gravityMean)"                
     [6] "angle(Z,gravityMean)"
+
+This is now completes task number four (4) which again to *appropriately labels the data set with descriptive variable names*.
+
+Next task would be task number (3) which is to *use descriptive activity names to name the activities in the data set*.
+In order to do that we need to read in the **activity labels** file.
+
+```{r}
+ activity_labels <- read.table("data/UCI HAR Dataset/activity_labels.txt")
+```
+Rename then variables/column names of *activity_labels* data set for merging later on. 
+
+```{r}
+ colnames(activity_labels) <- c("activity_id", "activity_name")
+```
+
+Then use `merge()` *test_train_combine* and *activity_labels* data sets to now include activity name aside from activity id.
+
+```{r}
+ test_train_combine <- merge(test_train_combine, activity_labels)
+```
+
+Now, let's see if *activity_name* values are now included in our data set.
+
+```{r}
+head(test_train_combine[,c("subject_id","activity_id","activity_name")])
+```
+
+    subject_id activity_id activity_name
+             7           1       WALKING
+             5           1       WALKING
+             6           1       WALKING
+            23           1       WALKING
+             7           1       WALKING
+             7           1       WALKING
+
+```{r}
+tail(test_train_combine[,c("subject_id","activity_id","activity_name")])
+```
+
+   subject_id activity_id activity_name
+            4           6        LAYING
+           17           6        LAYING
+           20           6        LAYING
+           17           6        LAYING
+           24           6        LAYING
+           12           6        LAYING
+           
+That now then meets the requirement for task number three (3).
+
+Now, let's move on to the penultimate task, namely, task number two (2) which is to *extract only the measurements on the mean and standard deviation for each measurement*.
+
+First since we need to only extract measurement that has mean and standard deviation tag on it then we will use `grep()` in order to get those variables.
+
+```{r}
+col_mean_std <- grep("std()|mean()", colnames(test_train_combine))
+```
+
+Using the extracted index numbers above for the variables/column names we desired we then extract all those variables/columns from the *test_train_combine* data sets.
+
+```{r}
+test_train_extract <- test_train_combine[ ,c(1:2,col_mean_std)]
+```
+
+Now, using `dplyr`'s `tbl_df` again to view our new extracted data sets.
+
+```{r}
+tbl_df(test_train_extract)
+```
+
+Source: local data frame [10,299 x 81]
+
+    activity_id subject_id tBodyAcc-mean()-X
+              1          7         0.3016485
+              1          5         0.3433592
+              1          6         0.2696745
+              1         23         0.2681938
+              1          7         0.3141912
+              1          7         0.2032763
+              1         11         0.2590250
+              1          6         0.1992710
+              1         10         0.1844691
+              1         11         0.2523332
+    ..         ...        ...               ...
+    Variables not shown: tBodyAcc-mean()-Y (dbl),
+    tBodyAcc-mean()-Z (dbl), tBodyAcc-std()-X (dbl),
+    tBodyAcc-std()-Y (dbl), tBodyAcc-std()-Z (dbl)
+
+If you observe we have the same number of observations as the original combine data sets however we have fewer variables/columns, namely, 81 of them including the *activity_id* and *subject_id*.
+
+To be specific we now have these columns.
+
+    [1] "activity_id"                    
+    [2] "subject_id"                     
+    [3] "tBodyAcc-mean()-X"              
+    [4] "tBodyAcc-mean()-Y"              
+    [5] "tBodyAcc-mean()-Z"              
+    [6] "tBodyAcc-std()-X"               
+    [7] "tBodyAcc-std()-Y"               
+    [8] "tBodyAcc-std()-Z"               
+    [9] "tGravityAcc-mean()-X"           
+    [10] "tGravityAcc-mean()-Y"           
+    [11] "tGravityAcc-mean()-Z"           
+    [12] "tGravityAcc-std()-X"            
+    [13] "tGravityAcc-std()-Y"            
+    [14] "tGravityAcc-std()-Z"            
+    [15] "tBodyAccJerk-mean()-X"          
+    [16] "tBodyAccJerk-mean()-Y"          
+    [17] "tBodyAccJerk-mean()-Z"          
+    [18] "tBodyAccJerk-std()-X"           
+    [19] "tBodyAccJerk-std()-Y"           
+    [20] "tBodyAccJerk-std()-Z"           
+    [21] "tBodyGyro-mean()-X"             
+    [22] "tBodyGyro-mean()-Y"             
+    [23] "tBodyGyro-mean()-Z"             
+    [24] "tBodyGyro-std()-X"              
+    [25] "tBodyGyro-std()-Y"              
+    [26] "tBodyGyro-std()-Z"              
+    [27] "tBodyGyroJerk-mean()-X"         
+    [28] "tBodyGyroJerk-mean()-Y"         
+    [29] "tBodyGyroJerk-mean()-Z"         
+    [30] "tBodyGyroJerk-std()-X"          
+    [31] "tBodyGyroJerk-std()-Y"          
+    [32] "tBodyGyroJerk-std()-Z"          
+    [33] "tBodyAccMag-mean()"             
+    [34] "tBodyAccMag-std()"              
+    [35] "tGravityAccMag-mean()"       
+    [36] "tGravityAccMag-std()"           
+    [37] "tBodyAccJerkMag-mean()"         
+    [38] "tBodyAccJerkMag-std()"          
+    [39] "tBodyGyroMag-mean()"            
+    [40] "tBodyGyroMag-std()"             
+    [41] "tBodyGyroJerkMag-mean()"        
+    [42] "tBodyGyroJerkMag-std()"         
+    [43] "fBodyAcc-mean()-X"              
+    [44] "fBodyAcc-mean()-Y"              
+    [45] "fBodyAcc-mean()-Z"              
+    [46] "fBodyAcc-std()-X"               
+    [47] "fBodyAcc-std()-Y"               
+    [48] "fBodyAcc-std()-Z"               
+    [49] "fBodyAcc-meanFreq()-X"          
+    [50] "fBodyAcc-meanFreq()-Y"          
+    [51] "fBodyAcc-meanFreq()-Z"          
+    [52] "fBodyAccJerk-mean()-X"          
+    [53] "fBodyAccJerk-mean()-Y"          
+    [54] "fBodyAccJerk-mean()-Z"          
+    [55] "fBodyAccJerk-std()-X"           
+    [56] "fBodyAccJerk-std()-Y"           
+    [57] "fBodyAccJerk-std()-Z"           
+    [58] "fBodyAccJerk-meanFreq()-X"      
+    [59] "fBodyAccJerk-meanFreq()-Y"      
+    [60] "fBodyAccJerk-meanFreq()-Z"      
+    [61] "fBodyGyro-mean()-X"             
+    [62] "fBodyGyro-mean()-Y"             
+    [63] "fBodyGyro-mean()-Z"             
+    [64] "fBodyGyro-std()-X"              
+    [65] "fBodyGyro-std()-Y"              
+    [66] "fBodyGyro-std()-Z"              
+    [67] "fBodyGyro-meanFreq()-X"         
+    [68] "fBodyGyro-meanFreq()-Y"         
+    [69] "fBodyGyro-meanFreq()-Z"         
+    [70] "fBodyAccMag-mean()"             
+    [71] "fBodyAccMag-std()"              
+    [72] "fBodyAccMag-meanFreq()"         
+    [73] "fBodyBodyAccJerkMag-mean()"     
+    [74] "fBodyBodyAccJerkMag-std()"      
+    [75] "fBodyBodyAccJerkMag-meanFreq()" 
+    [76] "fBodyBodyGyroMag-mean()"        
+    [77] "fBodyBodyGyroMag-std()"         
+    [78] "fBodyBodyGyroMag-meanFreq()"    
+    [79] "fBodyBodyGyroJerkMag-mean()"    
+    [80] "fBodyBodyGyroJerkMag-std()"     
+    [81] "fBodyBodyGyroJerkMag-meanFreq()"
+
+Now, we don't need activity_id anymore since we have now activity_name. This is also in preparation for a tidy data set not to mention that it violates the 3NF (3rd normal form) in relational database theory which says that there should be no transitional dependence on non-keys to other non-keys. In this case *activity_name* is transitionally dependent on *activity_id* instead of directly depedent on the primary key although imaginary at this point.
+
+So, we need to remove *activity_id* variable then from our latest data set.
+
+```{r}
+test_train_extract <- test_train_extract[,-match("activity_id",colnames(test_train_extract))]
+```
+
+Using `dim()` we can now see that we are left with 80 variables/columns from 81 before this.
+
+```{r}
+dim(test_train_extract)
+```
+
+This now concludes task number two (2) whic again to *extract only the measurements on the mean and standard deviation for each measurement*.
+
+So, for the final task which is to *creates a second, independent tidy data set with the average of each variable for each activity and each subject* we will now proceed.
+
 
 
