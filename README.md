@@ -1,9 +1,17 @@
 ## Getting and Cleaning Data - Coursera - Final Project
 ### A Run down on run_analysis.R
 
+The goal of this README file is to guide you on how the requirements below, for the Getting and Cleaning Data course Final Project by Johns Hopkins Univeristy under Cousera was faithfully fulfilled by this author as will be shown momentarily.
+
+1. Merges the training and the test sets to create one data set.
+2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+3. Uses descriptive activity names to name the activities in the data set
+4. Appropriately labels the data set with descriptive variable names. 
+5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
 The R scripts that follows along with its explanations and the steps necessary to execute it is based on the datasets produced as a result of experiment by *Jorge L. Reyes-Ortiz*, *Davide Anguita*, *Alessandro Ghio*, *Luca Oneto* and *Xavier Parra* regarding [Human Activity Recognition Using Smartphones] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
 
-First thing you need to do is open your `R-Studio` and after that download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+First thing you need to do is open your `R-Studio` and after successfully opening it then download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 
 or executing the following command in R-Studio
 
@@ -13,21 +21,23 @@ download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUC
 
 After you successfully downloded the zipped file, you then create a folder named **data** in the current working directory of your R-Studio. However, if you have that directory already skip this step.
 
-Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file in your current working directory. Then after that copy or transfer the extracted **UCI HAR Dataset** folder inside the **data** folder that you created awhile ago (or long ago if you have it already before).
+Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file in your current working directory. Then after that copy or move the extracted **UCI HAR Dataset** folder inside the **data** folder that you created awhile ago.
 
-Now, we are ready to start with the R script. But before we do that make sure that you install `dplyr` package first otherwise if not you need to install it.
+Now, we are ready to start with the R script. But before we do that make sure that you install `dplyr` package first. However, if you are very sure that it is already installed the `dplyr` then skip this part.
 
 ```{r}
 install.packages("dplyr")
 ```
 
-If you are sure that you have `dplyr` package installed in your R-Studio then you are now ready to load the `dplyr` package in your R-Studio.
+Once you have `dplyr` package installed in your R-Studio then you are now ready to load the `dplyr` package in your R-Studio.
 
 ```{r}
 suppressMessages(library(dplyr))
 ```
 
-Read into a dataset the *x_train* text file which is the performance training sets for 30 volunteer subjects. 
+Now, we could start reading both the train and test data sets (as how it is organized by the researchers). But first we need to start with the **train** data sets and then after that the **test** data sets. The method applied on the former would be exactly the same as with the latter.
+
+So, let's read into a dataset the *x_train* text file which is the performance training sets for 30 volunteer subjects. 
 
 ```{r}
 x_train <- read.table("data/UCI HAR Dataset/train/x_train.txt")
@@ -51,13 +61,13 @@ Combine all data sets using `cbind()` since all data sets has equal number of ro
 train_all <- cbind(subject_train, y_train, x_train)
 ```
 
-Using `dplyr`'s `tbl_df`
+Now, using `dplyr`'s `tbl_df`
 
 ```{r}
 tbl_df(train_all)
 ```
 
-I have this preview of the combined data sets of *x_train*, *y_train* and *subject_train*.
+We have now this preview of the combined data sets of *x_train*, *y_train* and *subject_train*.
 
     Source: local data frame [7,352 x 563]
 
@@ -80,3 +90,38 @@ I have this preview of the combined data sets of *x_train*, *y_train* and *subje
 
 [**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
 
+We could see from above that there are 7,352 observations and 563 variables. The *x_train* file has 561 variables while both the *y_train* and the *subject_train* each have one.
+
+The first column on the above shown table then is the *subject id* and the second column is the *activity id*. The rest of the columns are other measurements from **x_train** file.
+
+Now, as mentioned earlier we are going to read in the **test** data sets next and apply the same method as the train data set.
+
+Read in the `x_test` file.
+
+```{r}
+x_test <- read.table("data/UCI HAR Dataset/test/x_test.txt")
+```
+
+Next read in the `y_test` file.
+
+```{r}
+y_test <- read.table("data/UCI HAR Dataset/test/y_test.txt")
+```
+
+And finally the `subject_test` file.
+
+```{r}
+subject_test <- read.table("data/UCI HAR Dataset/test/subject_test.txt")
+```
+And just like the **train** data sets we need to combine all test files to make up one file for **test** data set.
+
+```{r}
+test_all <- cbind(subject_test, y_test, x_test)
+```
+
+After combining the train and test files separately into one data sets each, it's now time to combine them both. However, it would not be combine column-wise but row-wise since these are separate observations for both train and test data sets with exactly the same number of columns/variables. So, with that we need to use `rbind` command.
+
+```{r}
+test_train_combine <- rbind(train_all, test_all)
+```
+z
