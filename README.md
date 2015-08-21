@@ -179,11 +179,11 @@ We have now this preview of the combined data sets of both test and train data s
     9   1    5         0.2772934      -0.021750698
     10  1    5         0.2805857      -0.009960298
     .. ..   ..               ...               ...
-   Variables not shown: tBodyAcc-mean()-Z (dbl),
-   tBodyAcc-std()-X (dbl), tBodyAcc-std()-Y (dbl),
-   tBodyAcc-std()-Z (dbl), tBodyAcc-mad()-X (dbl),
-   tBodyAcc-mad()-Y (dbl), tBodyAcc-mad()-Z (dbl),
-   tBodyAcc-max()-X (dbl), tBodyAcc-max()-Y (dbl)
+    Variables not shown: tBodyAcc-mean()-Z (dbl),
+    tBodyAcc-std()-X (dbl), tBodyAcc-std()-Y (dbl),
+    tBodyAcc-std()-Z (dbl), tBodyAcc-mad()-X (dbl),
+    tBodyAcc-mad()-Y (dbl), tBodyAcc-mad()-Z (dbl),
+    tBodyAcc-max()-X (dbl), tBodyAcc-max()-Y (dbl)
    
 [**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
 
@@ -270,13 +270,13 @@ head(test_train_combine[,c("subject_id","activity_id","activity_name")])
 tail(test_train_combine[,c("subject_id","activity_id","activity_name")])
 ```
 
-   subject_id activity_id activity_name
-            4           6        LAYING
-           17           6        LAYING
-           20           6        LAYING
-           17           6        LAYING
-           24           6        LAYING
-           12           6        LAYING
+    subject_id activity_id activity_name
+             4           6        LAYING
+            17           6        LAYING
+            20           6        LAYING
+            17           6        LAYING
+            24           6        LAYING
+            12           6        LAYING
            
 That now then meets the requirement for task number three (3).
 
@@ -417,6 +417,7 @@ Using `dim()` we can now see that we are left with 80 variables/columns from 81 
 ```{r}
 dim(test_train_extract)
 ```
+    [1] 10299    80
 
 This now concludes task number two (2) whic again to *extract only the measurements on the mean and standard deviation for each measurement*.
 
