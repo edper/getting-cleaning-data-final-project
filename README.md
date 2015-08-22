@@ -17,9 +17,7 @@ This README file then is subdivided mainly into two, namely, running successfull
 
 1. Open your R-Studio
 2. Assumming you don't have dataset for this experiment you can either download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
-3. Or if not you can download it from your R-studio with the following command.
-```{r}
-download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", mode="wb", destfile = "getdata_projectfiles_UCI HAR Dataset.zip")
+3. Or if not you can download it from your R-studio with the following command.                                           ```{r} download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", mode="wb", destfile = "getdata_projectfiles_UCI HAR Dataset.zip")
 ```
 4. Create a folder named **data** in the current working directory of your R-Studio. However, if you have that directory already skip this step.
 5. Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file.
