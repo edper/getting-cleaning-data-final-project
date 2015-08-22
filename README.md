@@ -30,7 +30,7 @@ This README file then is subdivided mainly into two, namely, running successfull
 ```
 + Remove `plyr` package since it could cause error when we call `dplyr` functions that are similar. Although I prefixed my `dplyr` commands with `dplyr::` I don't just want to take chances.
 ```{r}
-    detach("package:plyr")
+   if (is.element("package:plyr", search())) { detach("package:plyr") }
 ```
 + Download the **run_analysis.R**
 + If you have already a **run_analysis.R** file in your current working directory for your R-Studio, please rename it for the meantime. You can of course re-name my own **run_analysis.R** file into whatever filename you want also.
