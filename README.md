@@ -27,13 +27,15 @@ This README file then is subdivided mainly into two, namely, running successfull
 6. Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
 7. Install the `dplyr` R packages if you have not done already.
 8. Remove `plyr` package since it could cause error when we call `dplyr` functions that are similar. Although I prefixed my `dplyr` commands with `dplyr::` I don't just want to take chances.
-..*```{r}
+..*
+```{r}
     detach.packages("package:plyr")
 ```
 9. Download the **run_analysis.R**
 10. If you have already a **run_analysis.R** file in your current working directory for your R-Studio, please rename it for the meantime. You can of course re-name my own **run_analysis.R** file into whatever filename you want and source it next.
 11. Finally you can `source()` *run_analysis.R* to execute it.
-..*```{r}
+..*
+```{r}
     source("run_analysis.R")
 ```
 
