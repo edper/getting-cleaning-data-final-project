@@ -15,7 +15,7 @@ This README file then is subdivided mainly into two, namely, running successfull
 
 **A. Running r_analysis.R successfully in your R-studio**
 
-+ Open your R-Studio
++ Open your R-Studio. In my case I am running *R-studio Version 0.99.467* and *R version 3.2.1*.
 + Assumming you don't have dataset for this experiment you can either download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 + Or if not you can download it from your R-studio with the following command. 
 ```{r} 
@@ -24,7 +24,7 @@ This README file then is subdivided mainly into two, namely, running successfull
 + Create a folder named **data** in the current working directory of your R-Studio. However, if you have that directory already skip this step.
 + Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file.
 + Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
-+ Install the `dplyr` R packages if you have not done already.
++ Install the `dplyr` R packages if you have not done already. In my case I am running `dplyr` *version 0.4.2*
 ```{r}
     install.packages("dplyr")
 ```
@@ -38,7 +38,7 @@ This README file then is subdivided mainly into two, namely, running successfull
 ```{r}
     source("run_analysis.R")
 ```
-+ You can view the text file **final_project_measurements_mean.txt** using a text editor (e.g. notepad++). However it is based to view it in `View()` function. But first you need to read in the text file first then view it.
++ You can view the text file **final_project_measurements_mean.txt** using a text editor (e.g. notepad++). However it is best to view it in `View()` function. But first you need to read-in the text file first then view it.
 ```{r}
     tidy_data <- read.table("final_project_measurements_mean.txt", header = T)
     View(tidy_data)
@@ -51,17 +51,20 @@ The R scripts that follows along with its explanations and the steps necessary t
 
 First a word of note. Although the main bulk of the script here is found in *run_analysis.R* there are other commands that I added for the purpose of illustration and clarifications on what happened every line of the code. 
 
-So, let's imagine that we run run_analysis.R **line-by-line** first again along with additional R commands for illustrations.
+So, let's imagine that we run run_analysis.R **line-by-line** and again with added R commands for illustration and clarification.
 
-To make sure that the `dplyr` package is loaded, so I started with:
+To make sure that the `dplyr` package is loaded, let's start with the `library()` to load the `dplyr` but we will check first if it is not loaded then we load `dplyr` otherwise the program proceed to the next line.
 
 ```{r}
-suppressMessages(library(dplyr))
+if (is.element("package:dplyr", search())) 
+{ 
+  suppressMessages(library(dplyr)) 
+}
 ```
 
-Next we need to read in both the **train** and **test** data sets (as how it is organized by the researchers). But first we need to start with the **train** data sets and then after that the **test** data sets. The method applied on the former would be exactly the same as with the latter.
+Next we need to read-in both the **train** and **test** data sets (as how it is organized by the researchers). But first we need to start with the **train** data sets and then after that the **test** data sets. The method applied on the former would be exactly the same as with the latter.
 
-So, let's read into a dataset the *x_train* text file which is the performance training sets for 30 volunteer subjects. 
+So, let's read-in to a dataset the *x_train* text file which is the performance training sets for 30 volunteer subjects. 
 
 ```{r}
 x_train <- read.table("data/UCI HAR Dataset/train/x_train.txt")
@@ -73,13 +76,13 @@ Then also the *y_train* text file which is the activity perform by each subject 
 y_train <- read.table("data/UCI HAR Dataset/train/y_train.txt")
 ```
 
-Finally, read in also the *subject_train* text file which contain the id number of each subject that match row per row against *x_train* and *y_train* text files.
+Finally, read-in also the *subject_train* text file which contain the id number of each subject that match row per row against *x_train* and *y_train* text files.
 
 ```{r}
 subject_train <- read.table("data/UCI HAR Dataset/train/subject_train.txt")
 ```
 
-Combine all data sets using `cbind()` since all data sets has equal number of rows (i.e. 7,352) and therefore will match exactly row per row as aforementioned.
+We will then combine all data sets using `cbind()` since all data sets has equal number of rows (i.e. 7,352) and therefore will match exactly row-per-row as aforementioned.
 
 ```{r}
 train_all <- cbind(subject_train, y_train, x_train)
@@ -114,19 +117,19 @@ We have now this preview of the combined data sets of *x_train*, *y_train* and *
 
 [**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
 
-We could see from above that there are 7,352 observations and 563 variables. The *x_train* file has 561 variables while both the *y_train* and the *subject_train* each have one.
+We could see from above that there are **7,352** observations and **563** variables. The *x_train* file has *561* variables while both the *y_train* and the *subject_train* each have *one*.
 
 The first column on the above shown table then is the *subject id* and the second column is the *activity id*. The rest of the columns are other measurements from **x_train** file.
 
-Now, as mentioned earlier we are going to read in the **test** data sets next and apply the same method as the train data set.
+Now, as mentioned earlier we are going to read-in the **test** data sets next and apply the same method as the **train** data set.
 
-Read in the `x_test` file.
+Read-in the `x_test` file.
 
 ```{r}
 x_test <- read.table("data/UCI HAR Dataset/test/x_test.txt")
 ```
 
-Next read in the `y_test` file.
+Next read-in the `y_test` file.
 
 ```{r}
 y_test <- read.table("data/UCI HAR Dataset/test/y_test.txt")
@@ -171,7 +174,7 @@ We have now this preview of the combined data sets of *x_test*, *y_test* and *su
 
 [**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
 
-If you observe the number of columns/variables (i.e. 563) on above table is exactly the same as that of *train* data sets. However, the number of observations is different, namely, theare are 2,947 observations as compared to 7,352 on *train* data sets. This is because this is different set of subjects but more importantly this is approximately 30% of the volunters were assigned to *test* data sets while approximately 70% were assigned to *train* data sets as devised by the researchers. 
+If you observe the number of columns/variables (i.e. 563) on above table is exactly the same as that of *train* data sets. However, the number of observations is different, namely, theare are **2,947** observations as compared to 7,352 on *train* data sets. This is because it is a different set of subjects but more importantly this is approximately 30% of the volunters were assigned to *test* data sets while approximately 70% were assigned to *train* data sets as devised by the researchers. 
 
 After combining the train and test files separately into one data sets each, it's now time to combine them both. However, it will not be combine column-wise but row-wise since these are separate observations for both train and test data sets with exactly the same number of columns/variables. So, with that we need to use `rbind` command.
 
@@ -209,18 +212,18 @@ We have now this preview of the combined data sets of both test and train data s
    
 [**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
 
-So, this time we have now a combine of 10,299 observations but with the same number of variables/columns (i.e. 563).
+So, this time we have now a combine of **10,299** observations but with the same number of variables/columns (i.e. 563).
 
-This fulfills the requirement then the first requirement of this project, namely,  *to merge the training and the test sets to create one data set*.
+This fulfills the requirement then for the first requirement of this project, namely,  *to merge the training and the test sets to create one data set*.
 
 Now, the second task was to *extract only the measurements on the mean and standard deviation for each measurement* from the merged/combine train and test data sets. However, I personally feel that it is more strategic programming-wise to do it later and instead do the task number four (4) which is to *appropriately labels the data set with descriptive variable names*. This is then what we are going to do first.
 
-In order to do that then I need to read-in first all column names stored in **features.txt**.
+In order to do that then I need to read-in first all column names stored in **features.txt** file.
 
 ```{r}
 column_names <- read.table("data/UCI HAR Dataset/features.txt")
 ```
-And then use `colnames()` within the `for..loop` to rename the variables/columns for the combine data sets of train and test data sets.
+And then use `colnames()` within the `for..loop` to rename the variables/columns for the combine data sets of train and test data sets using *features.txt* which contain all the measurement variables.
 
 ```{r}
 for(i in 1:nrow(column_names)) { 
@@ -228,13 +231,13 @@ for(i in 1:nrow(column_names)) {
 }
 ```
 
-If you observe the index is always offset by 2 columns `[i+2]` since the first two columns is again the `subject id` and the `activity id` (as mentioned earlier) will be rename next.
+If you observe the index is always offset by 2 columns `[i+2]` since the first two columns is again the `subject id` and the `activity id` (as mentioned earlier) and therefore we started at column three (3). Now, it is time to rename the firt two columns (i.e. V1 and V1.1) to `subject_id` and `activity_id`.
 
 ```{r}
 colnames(test_train_combine)[1:2] <- c("subject_id", "activity_id")
 ```
 
-Using then the `colnames()` for *test_train_combine* data sets we could now see that all the variables are now rename accordingly from *features.txt* and also now the first two columns, namely, the `subject_id` and `activity_id`.
+Using then the `colnames()` for *test_train_combine* data sets we could now see that all the variables are now rename accordingly from *features.txt* and also now the first two columns are also renamed.
 
 ```{r}
  head(colnames(test_train_combine))
@@ -254,10 +257,10 @@ Using then the `colnames()` for *test_train_combine* data sets we could now see 
     [5] "angle(Y,gravityMean)"                
     [6] "angle(Z,gravityMean)"
 
-This is now completes task number four (4) which again to *appropriately labels the data set with descriptive variable names*.
+This now completes task number four (4) which again to *appropriately labels the data set with descriptive variable names*.
 
 Next task would be task number (3) which is to *use descriptive activity names to name the activities in the data set*.
-In order to do that we need to read in the **activity labels** file.
+In order to do that we need to read in the **activity labels** file first which contains the activity description (e.g. WALKING, SITTING, STANDING etc) for the experiment.
 
 ```{r}
  activity_labels <- read.table("data/UCI HAR Dataset/activity_labels.txt")
@@ -268,13 +271,20 @@ Rename then variables/column names of *activity_labels* data set for merging lat
  colnames(activity_labels) <- c("activity_id", "activity_name")
 ```
 
-Then use `merge()` *test_train_combine* and *activity_labels* data sets to now include activity name aside from activity id.
+Then use `merge()` function to merge both *test_train_combine* and *activity_labels* data sets to now include activity name aside from activity id.
 
 ```{r}
  test_train_combine <- merge(test_train_combine, activity_labels)
 ```
 
-Now, let's see if *activity_name* values are now included in our data set.
+We have now **564** observations in our *test_train_combine* dataset because it now include `activity_name`.
+
+```{r}
+dim(test_train_combine)
+```
+    [1] 10299   564
+
+Now, let's see if *activity_name* values are now included in our data set as required for requirement number three (3) on this project.
 
 ```{r}
 head(test_train_combine[,c("subject_id","activity_id","activity_name")])
@@ -300,20 +310,20 @@ tail(test_train_combine[,c("subject_id","activity_id","activity_name")])
             24           6        LAYING
             12           6        LAYING
            
-That now then meets the requirement for task number three (3).
+As we could see activity names now are descriptive and that now then meets the requirement for task number three (3).
 
 Now, let's move on to the penultimate task, namely, task number two (2) which is to *extract only the measurements on the mean and standard deviation for each measurement*.
 
-First since we need to only extract measurement that has mean and standard deviation tag on it then we will use `grep()` in order to get those variables.
+First since we need to only extract measurement that has mean and standard deviation tag on it then we will use `grep()` function in order to get those variables that has either `mean()` or `std()` tags.
 
 ```{r}
 col_mean_std <- grep("std()|mean()", colnames(test_train_combine))
 ```
 
-Using the extracted index numbers above for the variables/column names we desired we then extract all those variables/columns from the *test_train_combine* data sets.
+Using the extracted index numbers above for the variables/column names we desired, we then extract all those variables/columns from the *test_train_combine* data sets.
 
 ```{r}
-test_train_extract <- test_train_combine[ ,c(1:2,col_mean_std)]
+test_train_extract <- test_train_combine[ ,c(1:2,col_mean_std,564)]
 ```
 
 Now, using `dplyr`'s `tbl_df` again to view our new extracted data sets.
@@ -322,7 +332,7 @@ Now, using `dplyr`'s `tbl_df` again to view our new extracted data sets.
 tbl_df(test_train_extract)
 ```
 
-    Source: local data frame [10,299 x 81]
+    Source: local data frame [10,299 x 82]
 
     activity_id subject_id tBodyAcc-mean()-X
               1          7         0.3016485
@@ -338,9 +348,12 @@ tbl_df(test_train_extract)
     ..         ...        ...               ...
     Variables not shown: tBodyAcc-mean()-Y (dbl),
     tBodyAcc-mean()-Z (dbl), tBodyAcc-std()-X (dbl),
-    tBodyAcc-std()-Y (dbl), tBodyAcc-std()-Z (dbl)
+    tBodyAcc-std()-Y (dbl), tBodyAcc-std()-Z (dbl),
+    ..         ...        ...               ...
+    fBodyBodyGyroJerkMag-meanFreq() (dbl), activity_name
+    (fctr)
 
-If you observe we have the same number of observations as the original combine data sets however we have fewer variables/columns, namely, 81 of them including the *activity_id* and *subject_id*.
+If you observe we have the same number of observations as the original combine data sets however we have fewer variables/columns, namely, **82** of them including the *activity_id*, *subject_id* and *activity_name* at the end.
 
 To be specific we now have these columns.
 
@@ -425,8 +438,9 @@ To be specific we now have these columns.
     [79] "fBodyBodyGyroJerkMag-mean()"    
     [80] "fBodyBodyGyroJerkMag-std()"     
     [81] "fBodyBodyGyroJerkMag-meanFreq()"
+    [82] "activity_name"
 
-Now, we don't need activity_id anymore since we have now activity_name. This is also in preparation for a tidy data set not to mention that it violates the 3NF (3rd normal form) in relational database theory which says that there should be no transitional dependence on non-keys to other non-keys. In this case *activity_name* is transitionally dependent on *activity_id* instead of directly depedent on the primary key although imaginary at this point.
+Now, we don't need activity_id anymore since we have now *activity_name*. This is also in preparation for a tidy data set not to mention that it violates the 3NF (3rd normal form) in relational database theory which says that there should be no transitional dependence on non-keys to other non-keys. In this case *activity_name* is transitionally dependent on *activity_id* instead of directly depedent on the primary key although imaginary at this point and optional for this project.
 
 So, we need to remove *activity_id* variable then from our latest data set.
 
@@ -434,16 +448,80 @@ So, we need to remove *activity_id* variable then from our latest data set.
 test_train_extract <- test_train_extract[,-match("activity_id",colnames(test_train_extract))]
 ```
 
-Using `dim()` we can now see that we are left with 80 variables/columns from 81 before this.
+Using `dim()` we can now see that we are left with **81** variables/columns from 82 before this.
 
 ```{r}
 dim(test_train_extract)
 ```
-    [1] 10299    80
+    [1] 10299    81
 
 This now concludes task number two (2) whic again to *extract only the measurements on the mean and standard deviation for each measurement*.
 
 So, for the final task which is to *creates a second, independent tidy data set with the average of each variable for each activity and each subject* we will now proceed.
 
+Our goal then is that we need to create a unique combination of both *activity name* and *subject* to meet one of the criteria set by [Hadley Wickham](http://vita.had.co.nz/papers/tidy-data.pdf) on his paper regarding tidy data that **each observation forms a row**.
 
+In order to do that we need to group according to `activity_name` and `subject_id` and then compute the average for all measurements. With that we could use `dplyr`'s `group_by()` to group by *activity name* and *subject id* and then `summary_each()` in order to hit two birds with one stone so to speak.
 
+```{r}
+test_train_measurements_mean <- dplyr::summarise_each(dplyr::group_by(test_train_extract, activity_name, subject_id),funs(mean))
+```
+
+Using `dim()` we have now **180** observations with **81** variables/columns.
+
+```{r}
+dim(test_train_measurements_mean)
+```
+    [1] 180  81
+
+Since, there are 6 possible activities (e.g. WALKING, SITTING, LAYING, STANDING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS) and since there are 30 subjects on this experiment therefore we have 180 (i.e. 6 x 30) unique combinations of activity and subject which meets one of the criteria for tidy data set that *each observation forms a row*. Additionally, it meets the requirement for this project which is to group the tidy data set by *activity name* and *subject id*.
+
+Now, let's view our final data set using `head()` and `tail()`.
+
+```{r}
+head(test_train_measurements_mean)
+```
+
+    activity_name subject_id  tBodyAcc-mean()-X
+           LAYING          1          0.2215982
+           LAYING          2          0.2813734
+           LAYING          3          0.2755169
+           LAYING          4          0.2635592
+           LAYING          5          0.2783343
+           LAYING          6          0.2486565
+
+```{r}
+tail(test_train_measurements_mean)
+```
+
+    activity_name subject_id tBodyAcc-mean()-X
+    WALKING_UPSTAIRS      25         0.2779954
+    WALKING_UPSTAIRS      26         0.2726914
+    WALKING_UPSTAIRS      27         0.2657703
+    WALKING_UPSTAIRS      28         0.2620058
+    WALKING_UPSTAIRS      29         0.2654231
+    WALKING_UPSTAIRS      30         0.2714156
+
+You can also use `View()` to view the whole final data set although some columns will not be included.
+
+```{r}
+View(test_train_measurements_mean)
+```
+    
+As we can see every unique pair of activity and subject is represented along with the corresponding measurements for each.
+
+Now, one of the criteria for tidy data set according to Wickham again is that **each type of observational unit forms a table** also was meet with this table. Since this is all about *Human Activity Recognition Using Smartphones* then this contitues one table that comprises all the observations therein. However, if there also activities of an animal that was observed then that would constitute a separate table and if included here would not meet the aforementioned criteria.
+Finally, one of the criteria of tidy data set according to Wickham again is that **each variable forms a colum**. In this regard this could be debatable and probably could be argued convincingly in both ends. However, since one of the criteria of a tidy data as set by the Professor on this subject, namely, that either wide or long form is acceptable as data set. Then it could be argued that this meets the criteria of a **WIDE** form tidy data set. We can make make it to a narrow form but its success to make it tidy could be elusive. For example we could put together those variables/columns that has vectors X,Y and Z. However, there are variables/columns that has no vectors and that could spell disaster observations-wise because the number of observations of those having vectors is at least three times larger than those have none. Secondly, we could probably merge according to time and frequency domains. But it could mean creating two tables separately for two observations and that could violate rule for a tidy data, namely, that *each type of observational unit forms a table*.
+
+Now, for the final line of our code we have to write to a text file.
+
+```{r}
+write.table(test_train_measurements_mean, file = "final_project_measurements_mean.txt", row.names = FALSE)
+```
+
+As noted ealier on this document you can view the text file **final_project_measurements_mean.txt** using a text editor (e.g. notepad++) or you can view it in `View()` function after reading-in the text file.
+
+```{r}
+    tidy_data <- read.table("final_project_measurements_mean.txt", header = T)
+    View(tidy_data)
+```
