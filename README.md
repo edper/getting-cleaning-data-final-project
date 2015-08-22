@@ -1,7 +1,7 @@
 ## Getting and Cleaning Data - Coursera - Final Project
 ### README file
 
-The goal of this README file is to guide you on how the requirements, for the Getting and Cleaning Data course Final Project by Johns Hopkins Univeristy under Cousera was faithfully fulfilled by this author as will be shown momentarily.
+The goal of this README file is to guide you not only how to run successfully the **run_analysis.R** file but also on how the requirements, for the Getting and Cleaning Data course Final Project by Johns Hopkins Univeristy under Cousera was successfully fulfilled (using the aforementioned R script) by this author as will be shown momentarily.
 
 Below is the requirements goal for this project.
 
@@ -11,33 +11,49 @@ Below is the requirements goal for this project.
 4. Appropriately labels the data set with descriptive variable names. 
 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-The R scripts that follows along with its explanations and the steps necessary to execute it is based on the datasets produced as a result of experiment by *Jorge L. Reyes-Ortiz*, *Davide Anguita*, *Alessandro Ghio*, *Luca Oneto* and *Xavier Parra* regarding [Human Activity Recognition Using Smartphones] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
+This README file then is subdivided mainly into two, namely, running successfully the *run_analysis.R* in your R-studio environment and a very detail run down on every line of code of *run_analysis.R*.
 
-First thing you need to do is open your `R-Studio` and after successfully opening it then download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+** A. Running r_analysis.R successfully in your R-studio**
 
-or executing the following command in R-Studio
-
+1. Open your R-Studio
+2. Assumming you don't have dataset for this experiment you can either download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+3. Or if not you can download it from your R-studio with the following command.
 ```{r}
 download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", mode="wb", destfile = "getdata_projectfiles_UCI HAR Dataset.zip")
 ```
-
-After you successfully downloded the zipped file, you then create a folder named **data** in the current working directory of your R-Studio. However, if you have that directory already skip this step.
-
-Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file in your current working directory. Then after that copy or move the extracted **UCI HAR Dataset** folder inside the **data** folder that you created awhile ago.
-
-Now, we are ready to start with the R script. But before we do that make sure that you install `dplyr` package first. However, if you are very sure that it is already installed the `dplyr` then skip this part.
-
+4. Create a folder named **data** in the current working directory of your R-Studio. However, if you have that directory already skip this step.
+5. Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file.
+6. Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
+7. Install the `dplyr` R packages if you have not done already.
 ```{r}
 install.packages("dplyr")
 ```
+8. Remove `plyr` package since it could cause error when we call `dplyr` functions that are similar. Although I prefixed my `dplyr` commands with `dplyr::` I don't want to take chances.
+```{r}
+detach.packages("package:plyr")
+```
+9. Download the **run_analysis.R** 
+10. If you have already a **run_analysis.R** file in your current working directory for your R-Studio, please rename it for the meantime. You can of course re-name my own **run_analysis.R** file into whatever filename you want and source it next.
+11. Finally you can `source()` *run_analysis.R* to execute it.
+```{r}
+source("run_analysis.R")
+```
 
-Once you have `dplyr` package installed in your R-Studio then you are now ready to load the `dplyr` package in your R-Studio.
+The R scripts that follows along with its explanations and the steps necessary to execute it is based on the datasets produced as a result of experiment by *Jorge L. Reyes-Ortiz*, *Davide Anguita*, *Alessandro Ghio*, *Luca Oneto* and *Xavier Parra* regarding [Human Activity Recognition Using Smartphones] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
+
+** B. A line-by-line commentary on r_analysis.R**
+
+First a word of note. Although the main bulk of the script here is found in *run_analysis.R* there are other commands that I added for the purpose of illustration and clarifications on what happened every line of the code. 
+
+So, let's imagine that we run run_analysis.R **line-by-line** first again along with additional R commands for illustrations.
+
+To make sure that the `dplyr` package is loaded, so I started with:
 
 ```{r}
 suppressMessages(library(dplyr))
 ```
 
-Now, we could start reading both the train and test data sets (as how it is organized by the researchers). But first we need to start with the **train** data sets and then after that the **test** data sets. The method applied on the former would be exactly the same as with the latter.
+Next we need to read in both the **train** and **test** data sets (as how it is organized by the researchers). But first we need to start with the **train** data sets and then after that the **test** data sets. The method applied on the former would be exactly the same as with the latter.
 
 So, let's read into a dataset the *x_train* text file which is the performance training sets for 30 volunteer subjects. 
 
@@ -300,7 +316,7 @@ Now, using `dplyr`'s `tbl_df` again to view our new extracted data sets.
 tbl_df(test_train_extract)
 ```
 
-Source: local data frame [10,299 x 81]
+    Source: local data frame [10,299 x 81]
 
     activity_id subject_id tBodyAcc-mean()-X
               1          7         0.3016485
