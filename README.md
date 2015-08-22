@@ -15,26 +15,23 @@ This README file then is subdivided mainly into two, namely, running successfull
 
 **A. Running r_analysis.R successfully in your R-studio**
 
-1. Open your R-Studio
-2. Assumming you don't have dataset for this experiment you can either download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
-3. Or if not you can download it from your R-studio with the following command.                                           ```{r} download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", mode="wb", destfile = "getdata_projectfiles_UCI HAR Dataset.zip")
-```
-4. Create a folder named **data** in the current working directory of your R-Studio. However, if you have that directory already skip this step.
-5. Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file.
-6. Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
-
-
-5. Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file.
-6. Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
-7. Install the `dplyr` R packages if you have not done already.
-8. Remove `plyr` package since it could cause error when we call `dplyr` functions that are similar. Although I prefixed my `dplyr` commands with `dplyr::` I don't just want to take chances.
-```{r}
-detach.packages("package:plyr")Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
-```
-
-9. Download the **run_analysis.R**
-10. If you have already a **run_analysis.R** file in your current working directory for your R-Studio, please rename it for the meantime. You can of course re-name my own **run_analysis.R** file into whatever filename you want and source it next.
-11. Finally you can `source()` *run_analysis.R* to execute it.
+    1. Open your R-Studio
+    2. Assumming you don't have dataset for this experiment you can either download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+    3. Or if not you can download it from your R-studio with the following command. 
+    ```{r} 
+     download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", mode="wb", destfile = "getdata_projectfiles_UCI HAR Dataset.zip")
+     ```
+    4. Create a folder named **data** in the current working directory of your R-Studio. However, if you have that directory already skip this step.
+    5. Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file.
+    6. Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
+    7. Install the `dplyr` R packages if you have not done already.
+    8. Remove `plyr` package since it could cause error when we call `dplyr` functions that are similar. Although I prefixed my `dplyr` commands with `dplyr::` I don't just want to take chances.
+    ```{r}
+    detach.packages("package:plyr")
+    ```
+    9. Download the **run_analysis.R**
+    10. If you have already a **run_analysis.R** file in your current working directory for your R-Studio, please rename it for the meantime. You can of course re-name my own **run_analysis.R** file into whatever filename you want and source it next.
+    11. Finally you can `source()` *run_analysis.R* to execute it.
 
 The R scripts that follows along with its explanations and the steps necessary to execute it is based on the datasets produced as a result of experiment by *Jorge L. Reyes-Ortiz*, *Davide Anguita*, *Alessandro Ghio*, *Luca Oneto* and *Xavier Parra* regarding [Human Activity Recognition Using Smartphones] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
 
