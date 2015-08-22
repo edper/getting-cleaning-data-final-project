@@ -25,9 +25,12 @@ This README file then is subdivided mainly into two, namely, running successfull
 + Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file.
 + Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
 + Install the `dplyr` R packages if you have not done already.
+```{r}
+    install.packages("package:plyr")
+```
 + Remove `plyr` package since it could cause error when we call `dplyr` functions that are similar. Although I prefixed my `dplyr` commands with `dplyr::` I don't just want to take chances.
 ```{r}
-    detach.packages("package:plyr")
+    detach("package:plyr")
 ```
 + Download the **run_analysis.R**
 + If you have already a **run_analysis.R** file in your current working directory for your R-Studio, please rename it for the meantime. You can of course re-name my own **run_analysis.R** file into whatever filename you want also.
@@ -35,6 +38,12 @@ This README file then is subdivided mainly into two, namely, running successfull
 ```{r}
     source("run_analysis.R")
 ```
++ You can view the text file **final_project_measurements_mean.txt** using a text editor (e.g. notepad++). However it is based to view it in `View()` function. But first you need to read in the text file first then view it.
+```{r}
+    tidy_data <- read.table("final_project_measurements_mean.txt", header = T)
+    View(tidy_data)
+```
+
 
 The R scripts that follows along with its explanations and the steps necessary to execute it is based on the datasets produced as a result of experiment by *Jorge L. Reyes-Ortiz*, *Davide Anguita*, *Alessandro Ghio*, *Luca Oneto* and *Xavier Parra* regarding [Human Activity Recognition Using Smartphones] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
 
