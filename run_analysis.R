@@ -1,4 +1,8 @@
-suppressMessages(library(dplyr))
+if (is.element("package:dplyr", search())) 
+{ 
+  suppressMessages(library(dplyr)) 
+}
+
 
 # Combine subject_train or the subject for the training sets
 # then y_train which is the activity number that the subject performed
@@ -11,6 +15,7 @@ train_all <- cbind(subject_train, y_train, x_train)
 # Combine subject_test or the subject for the test sets
 # then y_test which is the activity number that the subject performed
 # and finally the x_test which is the performed test sets for each subject
+
 x_test <- read.table("data/UCI HAR Dataset/test/x_test.txt")
 y_test <- read.table("data/UCI HAR Dataset/test/y_test.txt")
 subject_test <- read.table("data/UCI HAR Dataset/test/subject_test.txt")
@@ -46,7 +51,7 @@ test_train_combine <- merge(test_train_combine, activity_labels)
 # Extract the variables that has the mean and standard deviation meaurments
 # including the subject id and activity number (for merging later on)
 col_mean_std <- grep("std()|mean()", colnames(test_train_combine))
-test_train_extract <- test_train_combine[ ,c(1:2,col_mean_std)]
+test_train_extract <- test_train_combine[ ,c(1:2,col_mean_std,564)]
 
 # remove activity_id variable 
 # so that it would not be included 
@@ -58,11 +63,7 @@ test_train_extract <- test_train_extract[,-match("activity_id",colnames(test_tra
 # group by activity name and subject id
 # summarize_each so that all measurement columns 
 # (i.e. columans with mean and std labels) will be measured
-test_train_measurements_mean <- summarise_each(group_by(test_train_extract, activity_name, subject_id),funs(mean))
-
-# rename all variables by adding the word 'mean'
-# except subject_id and activity_name
-colnames(test_train_measurements_mean)[c(-1,-2)] <- paste0(colnames(test_train_measurements_mean)[c(-1,-2)],"_mean")
+test_train_measurements_mean <- dplyr::summarise_each(dplyr::group_by(test_train_extract, activity_name, subject_id),funs(mean))
 
 # write the result to a text file
 write.table(test_train_measurements_mean, file = "final_project_measurements_mean.txt", row.names = FALSE)
