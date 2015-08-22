@@ -15,7 +15,7 @@ This README file then is subdivided mainly into two, namely, running successfull
 
 **A. Running r_analysis.R successfully in your R-studio**
 
-+ Open your R-Studio. In my case I am running *R-studio Version 0.99.467* and *R version 3.2.1*.
++ Open your R-Studio. In my case I am running *R-studio version 0.99.467* and *R version 3.2.1*.
 + Assumming you don't have dataset for this experiment you can either download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 + Or if not you can download it from your R-studio with the following command. 
 ```{r} 
