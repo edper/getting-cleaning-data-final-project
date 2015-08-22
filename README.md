@@ -26,7 +26,7 @@ This README file then is subdivided mainly into two, namely, running successfull
 + Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
 + Install the `dplyr` R packages if you have not done already.
 ```{r}
-    install.packages("package:plyr")
+    install.packages("dplyr")
 ```
 + Remove `plyr` package since it could cause error when we call `dplyr` functions that are similar. Although I prefixed my `dplyr` commands with `dplyr::` I don't just want to take chances.
 ```{r}
