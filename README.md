@@ -13,7 +13,7 @@ Below is the requirements goal for this project.
 
 This README file then is subdivided mainly into two, namely, running successfully the *run_analysis.R* in your R-studio environment and a very detail run down on every line of code of *run_analysis.R*.
 
-** A. Running r_analysis.R successfully in your R-studio**
+**A. Running r_analysis.R successfully in your R-studio**
 
 1. Open your R-Studio
 2. Assumming you don't have dataset for this experiment you can either download the zipped file needed for this activity either by clicking on this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
@@ -25,23 +25,17 @@ download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUC
 5. Unzipped the **getdata_projectfiles_UCI HAR Dataset.zip** file.
 6. Copy or move the extracted **UCI HAR Dataset** folder *inside* the **data** folder that you created awhile ago.
 7. Install the `dplyr` R packages if you have not done already.
-```{r}
-install.packages("dplyr")
-```
-8. Remove `plyr` package since it could cause error when we call `dplyr` functions that are similar. Although I prefixed my `dplyr` commands with `dplyr::` I don't want to take chances.
+8. Remove `plyr` package since it could cause error when we call `dplyr` functions that are similar. Although I prefixed my `dplyr` commands with `dplyr::` I don't just want to take chances.
 ```{r}
 detach.packages("package:plyr")
 ```
-9. Download the **run_analysis.R** 
+9. Download the **run_analysis.R**
 10. If you have already a **run_analysis.R** file in your current working directory for your R-Studio, please rename it for the meantime. You can of course re-name my own **run_analysis.R** file into whatever filename you want and source it next.
 11. Finally you can `source()` *run_analysis.R* to execute it.
-```{r}
-source("run_analysis.R")
-```
 
 The R scripts that follows along with its explanations and the steps necessary to execute it is based on the datasets produced as a result of experiment by *Jorge L. Reyes-Ortiz*, *Davide Anguita*, *Alessandro Ghio*, *Luca Oneto* and *Xavier Parra* regarding [Human Activity Recognition Using Smartphones] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
 
-** B. A line-by-line commentary on r_analysis.R**
+**B. A line-by-line commentary on r_analysis.R**
 
 First a word of note. Although the main bulk of the script here is found in *run_analysis.R* there are other commands that I added for the purpose of illustration and clarifications on what happened every line of the code. 
 
