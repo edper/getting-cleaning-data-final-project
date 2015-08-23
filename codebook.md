@@ -70,7 +70,7 @@ After downloading the zipped file as mentioned above I started working on files 
      .. ..   ..       ...          ...        ...        ...
 
 
-I did the same also for the test sets merging the three files (i.e. x_text.txt, y_test.txt, subject_test.txt) accordingly. And I got the following results below which has 2,947 observations and still 563 variables.
+I did the same also for the test sets merging the three files (i.e. **x_test.txt**, **y_test.txt**, **subject_test.txt**) accordingly. And I got the following results below which has 2,947 observations and still 563 variables.
 
      Source: local data frame [2,947 x 563]
 
