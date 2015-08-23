@@ -192,23 +192,21 @@ We have now this preview of the combined data sets of both test and train data s
 
     Source: local data frame [10,299 x 563]
 
-    V1 V1.1 tBodyAcc-mean()-X tBodyAcc-mean()-Y
-    1   1    5         0.2885845      -0.020294171
-    2   1    5         0.2784188      -0.016410568
-    3   1    5         0.2796531      -0.019467156
-    4   1    5         0.2791739      -0.026200646
-    5   1    5         0.2766288      -0.016569655
-    6   1    5         0.2771988      -0.010097850
-    7   1    5         0.2794539      -0.019640776
-    8   1    5         0.2774325      -0.030488303
-    9   1    5         0.2772934      -0.021750698
-    10  1    5         0.2805857      -0.009960298
-    .. ..   ..               ...               ...
-    Variables not shown: tBodyAcc-mean()-Z (dbl),
-    tBodyAcc-std()-X (dbl), tBodyAcc-std()-Y (dbl),
-    tBodyAcc-std()-Z (dbl), tBodyAcc-mad()-X (dbl),
-    tBodyAcc-mad()-Y (dbl), tBodyAcc-mad()-Z (dbl),
-    tBodyAcc-max()-X (dbl), tBodyAcc-max()-Y (dbl)
+    V1 V1.1      V1.2           V2         V3         V4
+    1   1    5 0.2885845 -0.020294171 -0.1329051 -0.9952786
+    2   1    5 0.2784188 -0.016410568 -0.1235202 -0.9982453
+    3   1    5 0.2796531 -0.019467156 -0.1134617 -0.9953796
+    4   1    5 0.2791739 -0.026200646 -0.1232826 -0.9960915
+    5   1    5 0.2766288 -0.016569655 -0.1153619 -0.9981386
+    6   1    5 0.2771988 -0.010097850 -0.1051373 -0.9973350
+    7   1    5 0.2794539 -0.019640776 -0.1100221 -0.9969210
+    8   1    5 0.2774325 -0.030488303 -0.1253604 -0.9965593
+    9   1    5 0.2772934 -0.021750698 -0.1207508 -0.9973285
+    10  1    5 0.2805857 -0.009960298 -0.1060652 -0.9948034
+    .. ..   ..       ...          ...        ...        ...
+    Variables not shown: V5 (dbl), V6 (dbl), V7 (dbl), V8
+   (dbl), V9 (dbl), V10 (dbl), V11 (dbl), V12 (dbl), V13
+   (dbl), V14 (dbl), V15 (dbl), V16 (dbl), V17 (dbl), V18
    
 [**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
 
