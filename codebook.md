@@ -217,7 +217,7 @@ Below are the **82** extracted variables ready for tidy data set.
 
 Again those variables that has *'Acc'* for Accelerations are measured in terms of **meters per second** (m/s) and those variables that have *'Gyro'* for angular velocity are measured in **radians per second**.
 
-Before computing the summary of these variables above *activity_id* has to be removed first because we have now *activity_name* as shown above.
+Before computing the summary of the above variables, *activity_id* has to be removed first because we already have *activity_name* as shown above.
 
 Finally, we need to compute the average or mean of the **79** measurement variables group by **activity_name** and **subject_id**. Using `summary_each()` function along with `group_by()` in `dplyr` we come up with the summary all extracted measurement variables again group according to **activity_name** and **subject_id**.
 
@@ -225,7 +225,7 @@ Finally, we need to compute the average or mean of the **79** measurement variab
 test_train_measurements_mean <- dplyr::summarise_each(dplyr::group_by(test_train_extract, activity_name, subject_id),funs(mean))
 ```
 
-With that we are left with 180 observations and 81 variables. The 180 is the number of activities (6) in combination with the number of subjects (30) or 6 x 30. We therefore got the summary of all extracted variables group by *activity_name* and *subject_id*. Along with that we computed the average or `mean()` of all the 79 measurement variables as shown above.
+With that we are left with 180 observations and 81 variables. The 180 is the number of activities (6) in combination with the number of subjects (30) or 6 x 30. We therefore got the **summary of all extracted variables** group by *activity_name* and *subject_id*. Along with that we computed the average or `mean()` of all the 79 measurement variables as shown above.
 
 Source: local data frame [180 x 81]
 
@@ -259,7 +259,7 @@ tail(test_train_measurements_mean)
     WALKING_UPSTAIRS      29         0.2654231
     WALKING_UPSTAIRS      30         0.2714156
 
-This then match the requirement for a tidy data which says  **each variable forms a column**, **each observation forms a row** and **each type of observational unit forms a table**. And this is specifically a **WIDE** form of tidy data. (Note: (See README.md for detail explanation on why this is a tidy data)
+This then match the requirement for a tidy data which says  **each variable forms a column**, **each observation forms a row** and **each type of observational unit forms a table**. And this is specifically a **WIDE** form of tidy data. (Note: See README.md for detail explanation on why this is a tidy data)
 
 
 ###Reference###
