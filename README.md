@@ -205,8 +205,8 @@ We have now this preview of the combined data sets of both test and train data s
     10  1    5 0.2805857 -0.009960298 -0.1060652 -0.9948034
     .. ..   ..       ...          ...        ...        ...
     Variables not shown: V5 (dbl), V6 (dbl), V7 (dbl), V8
-   (dbl), V9 (dbl), V10 (dbl), V11 (dbl), V12 (dbl), V13
-   (dbl), V14 (dbl), V15 (dbl), V16 (dbl), V17 (dbl), V18
+    (dbl), V9 (dbl), V10 (dbl), V11 (dbl), V12 (dbl), V13
+    (dbl), V14 (dbl), V15 (dbl), V16 (dbl), V17 (dbl), V18
    
 [**Note:** Some of variables under *Variables not shown* I intentionally did not show to save space.]
 
