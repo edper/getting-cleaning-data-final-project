@@ -8,9 +8,18 @@ The experimental design and background is taken from the [source](http://archive
 
 *The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain."*
 
-The source data is donwloaded from this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
 
-There are several files on the above zipped file. But it is mainly divided into two groups of files as per the design of this study, namely, the train and test data sets. After combining both the train and test files including the subject and the activity the subject perform there were a total of 10,299 observations/rows and 564 variables/rows. However, all the measurement variables are 561 in all as shown below. 
+###Raw Data###
+
+The source data could be donwloaded from this [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) which approximately **61MB** in size.
+
+There are several files on the above zipped file. But it is mainly divided into two groups of files as per the design of this study, namely, the **train** and **test** data sets. For example the **x_train.txt** and **x_test.txt** contains the performance sets of the 70% and 30% of the subject respectively.  And the **y_train.txt** and **y_test.txt** contains the sets of activity perform by agai 70% and 30% of the subject respectively. As mentioned above there are 30 subjects on this experiments. Also **activity_label.txt** contains the activity description of the subject, namely, WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTARS, SITTING, STANDING and LAYING. 
+
+The measurement variables are group according to **time** and **frequency** domains. Thus variable names under time domain is prefixed with letter 't' and variable names under frequency domain are prefixed with letter 'f'. Both under time and frequency domains there are four major group of measurements, namely, **3-axial linear accelerations**, **3-axial angular velocity**, **body jerks** and the **magnitude** of the three dimensional signals. Accelerations (which is the rate of velocity with respect to time) are measured in **m/s** (meter per second) in which gravitational force 'g' (9.8 m/s^2) is deducted for accuracy. Angular velocity is measured in **radians per second**.
+
+
+It also includes the name of all measurement variables inside features.txt and as well as the activity description inside  
+After combining both the train and test files including the subject and the activity the subject perform there were a total of **10,299** observations/rows and **564** variables/rows. However, all the measurement variables are **561** in all as shown below. 
 
 1 tBodyAcc-mean()-X
 2 tBodyAcc-mean()-Y
