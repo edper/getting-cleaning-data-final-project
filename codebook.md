@@ -29,6 +29,7 @@ The researcher of this study uses abbreviations to for naming their measurement 
     Gyro          ->  Gyroscope
     Mag           ->  Magnitude
     Gravity       ->  Gravitational pull
+    X/Y/Z         ->  refers to the direction of movements which either in X-axis, Y-axis or Z-axis
     mean()        ->  Mean value
     std()         ->  Standard deviation
     mad()         ->  Median absolute deviation 
@@ -128,3 +129,142 @@ I then rename all columns based on *features.txt* file and manually as well for 
     ..         ...        ...               ...
     fBodyBodyGyroJerkMag-meanFreq() (dbl), activity_name
     (fctr)
+    
+Below are the **82** extracted variables ready for tidy data set.
+
+    [1] "activity_id"                    
+    [2] "subject_id"                     
+    [3] "tBodyAcc-mean()-X"              
+    [4] "tBodyAcc-mean()-Y"              
+    [5] "tBodyAcc-mean()-Z"              
+    [6] "tBodyAcc-std()-X"               
+    [7] "tBodyAcc-std()-Y"               
+    [8] "tBodyAcc-std()-Z"               
+    [9] "tGravityAcc-mean()-X"           
+    [10] "tGravityAcc-mean()-Y"           
+    [11] "tGravityAcc-mean()-Z"           
+    [12] "tGravityAcc-std()-X"            
+    [13] "tGravityAcc-std()-Y"            
+    [14] "tGravityAcc-std()-Z"            
+    [15] "tBodyAccJerk-mean()-X"          
+    [16] "tBodyAccJerk-mean()-Y"          
+    [17] "tBodyAccJerk-mean()-Z"          
+    [18] "tBodyAccJerk-std()-X"           
+    [19] "tBodyAccJerk-std()-Y"           
+    [20] "tBodyAccJerk-std()-Z"           
+    [21] "tBodyGyro-mean()-X"             
+    [22] "tBodyGyro-mean()-Y"             
+    [23] "tBodyGyro-mean()-Z"             
+    [24] "tBodyGyro-std()-X"              
+    [25] "tBodyGyro-std()-Y"              
+    [26] "tBodyGyro-std()-Z"              
+    [27] "tBodyGyroJerk-mean()-X"         
+    [28] "tBodyGyroJerk-mean()-Y"         
+    [29] "tBodyGyroJerk-mean()-Z"         
+    [30] "tBodyGyroJerk-std()-X"          
+    [31] "tBodyGyroJerk-std()-Y"          
+    [32] "tBodyGyroJerk-std()-Z"          
+    [33] "tBodyAccMag-mean()"             
+    [34] "tBodyAccMag-std()"              
+    [35] "tGravityAccMag-mean()"       
+    [36] "tGravityAccMag-std()"           
+    [37] "tBodyAccJerkMag-mean()"         
+    [38] "tBodyAccJerkMag-std()"          
+    [39] "tBodyGyroMag-mean()"            
+    [40] "tBodyGyroMag-std()"             
+    [41] "tBodyGyroJerkMag-mean()"        
+    [42] "tBodyGyroJerkMag-std()"         
+    [43] "fBodyAcc-mean()-X"              
+    [44] "fBodyAcc-mean()-Y"              
+    [45] "fBodyAcc-mean()-Z"              
+    [46] "fBodyAcc-std()-X"               
+    [47] "fBodyAcc-std()-Y"               
+    [48] "fBodyAcc-std()-Z"               
+    [49] "fBodyAcc-meanFreq()-X"          
+    [50] "fBodyAcc-meanFreq()-Y"          
+    [51] "fBodyAcc-meanFreq()-Z"          
+    [52] "fBodyAccJerk-mean()-X"          
+    [53] "fBodyAccJerk-mean()-Y"          
+    [54] "fBodyAccJerk-mean()-Z"          
+    [55] "fBodyAccJerk-std()-X"           
+    [56] "fBodyAccJerk-std()-Y"           
+    [57] "fBodyAccJerk-std()-Z"           
+    [58] "fBodyAccJerk-meanFreq()-X"      
+    [59] "fBodyAccJerk-meanFreq()-Y"      
+    [60] "fBodyAccJerk-meanFreq()-Z"      
+    [61] "fBodyGyro-mean()-X"             
+    [62] "fBodyGyro-mean()-Y"             
+    [63] "fBodyGyro-mean()-Z"             
+    [64] "fBodyGyro-std()-X"              
+    [65] "fBodyGyro-std()-Y"              
+    [66] "fBodyGyro-std()-Z"              
+    [67] "fBodyGyro-meanFreq()-X"         
+    [68] "fBodyGyro-meanFreq()-Y"         
+    [69] "fBodyGyro-meanFreq()-Z"         
+    [70] "fBodyAccMag-mean()"             
+    [71] "fBodyAccMag-std()"              
+    [72] "fBodyAccMag-meanFreq()"         
+    [73] "fBodyBodyAccJerkMag-mean()"     
+    [74] "fBodyBodyAccJerkMag-std()"      
+    [75] "fBodyBodyAccJerkMag-meanFreq()" 
+    [76] "fBodyBodyGyroMag-mean()"        
+    [77] "fBodyBodyGyroMag-std()"         
+    [78] "fBodyBodyGyroMag-meanFreq()"    
+    [79] "fBodyBodyGyroJerkMag-mean()"    
+    [80] "fBodyBodyGyroJerkMag-std()"     
+    [81] "fBodyBodyGyroJerkMag-meanFreq()"
+    [82] "activity_name"
+
+Again those variables that has *'Acc'* for Accelerations are measured in terms of **meters per second** (m/s) and those variables that have *'Gyro'* for angular velocity are measured in **radians per second**.
+
+Before computing the summary of these variables above *activity_id* has to be removed first because we have now *activity_name* as shown above.
+
+Finally, we need to compute the average or mean of the **79** measurement variables group by **activity_name** and **subject_id**. Using `summary_each()` function along with `group_by()` in `dplyr` we come up with the summary all extracted measurement variables again group according to **activity_name** and **subject_id**.
+
+```{r}
+test_train_measurements_mean <- dplyr::summarise_each(dplyr::group_by(test_train_extract, activity_name, subject_id),funs(mean))
+```
+
+With that we are left with 180 observations and 81 variables. The 180 is the number of activities (6) in combination with the number of subjects (30) or 6 x 30. We therefore got the summary of all extracted variables group by *activity_name* and *subject_id*. Along with that we computed the average or `mean()` of all the 79 measurement variables as shown above.
+
+Source: local data frame [180 x 81]
+
+      activity_name subject_id tBodyAcc-mean()-X
+      1         LAYING          1         0.2215982
+      2         LAYING          2         0.2813734
+      3         LAYING          3         0.2755169
+      4         LAYING          4         0.2635592
+      5         LAYING          5         0.2783343
+      6         LAYING          6         0.2486565
+      7         LAYING          7         0.2501767
+      8         LAYING          8         0.2612543
+      9         LAYING          9         0.2591955
+      10        LAYING         10         0.2802306
+      ..           ...        ...               ...
+      Variables not shown: tBodyAcc-mean()-Y (dbl),
+      tBodyAcc-mean()-Z (dbl), tBodyAcc-std()-X (dbl),
+      tBodyAcc-std()-Y (dbl), tBodyAcc-std()-Z (dbl),
+
+Looking at the bottom part of the data set we have.
+
+```{r}
+tail(test_train_measurements_mean)
+```
+
+    activity_name subject_id tBodyAcc-mean()-X
+    WALKING_UPSTAIRS      25         0.2779954
+    WALKING_UPSTAIRS      26         0.2726914
+    WALKING_UPSTAIRS      27         0.2657703
+    WALKING_UPSTAIRS      28         0.2620058
+    WALKING_UPSTAIRS      29         0.2654231
+    WALKING_UPSTAIRS      30         0.2714156
+
+This then match the requirement for a tidy data which says  **each variable forms a column**, **each observation forms a row** and **each type of observational unit forms a table**. And this is specifically a **WIDE** form of tidy data. (Note: (See README.md for detail explanation on why this is a tidy data)
+
+
+###Reference###
+
+*Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.*
+
+Wickham, H. (2014, September 10). Tidy Data. Retrieved August 23, 2015, from http://vita.had.co.nz/papers/tidy-data.pdf 
+
