@@ -19,7 +19,7 @@ The measurement variables are group according to **time** and **frequency** doma
 
 **Measurement abbreviations meaning**
 
-The researcher of this study uses abbreviations to for naming their measurement variables/columns (561 of them). And below are the meaning of each abbreviations.
+The researcher of this study uses abbreviations for naming their measurement variables/columns (561 of them). And below are the meaning of each abbreviations.
 
     t             ->  Time Domain
     f             ->  Frequency Domain
